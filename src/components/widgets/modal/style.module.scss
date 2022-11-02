@@ -1,0 +1,10 @@
+.full-dialog {
+  :global {
+    .ant-modal-content {
+      height: 100%;
+      .ant-modal-body {
+        height: 100%;
+      }
+    }
+  }
+}
