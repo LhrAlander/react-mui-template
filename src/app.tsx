@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import 'antd/dist/antd.css'
-import { Button, ConfigProvider } from 'antd'
-import zhCN from 'antd/lib/locale/zh_CN'
+import { Button } from '@mui/material'
+
+import { ThemeProvider } from '@mui/system'
 import addModalWrapper from '@/components/hoc/addModalWrapper'
+import { DialogProps } from '@/components/modal/types'
 import useModal from '@/hooks/useModal'
-import Modal from '@/components/widgets/modal'
-import { DialogProps } from '@/hooks/useModal/types'
+import Modal from '@/components/modal'
+import theme from '@/common/theme'
+import Typography from '@/components/widgets/typography'
 
 const rootElem = document.querySelector('#root')
 const root = createRoot(rootElem)
@@ -17,26 +19,30 @@ interface ISampleModalProps {
 function SampleModal(props: DialogProps<ISampleModalProps>) {
   return (
     <Modal
-      visible={props.visible}
-      onOk={() => props.onOK('Hello I am OK')}
+      open={props.open}
+      title="明细导出"
+      titleMb={50}
+      onOK={() => props.onOK('Hello I am OK')}
       onCancel={() => props.onCancel('Hello I am CANCEL')}
     >
-      Hello, my name is {props.name}
+      <Typography>Hello, my name is {props.name}</Typography>
     </Modal>
   )
 }
 
 function Layout() {
   const { openModal } = useModal()
+  const [count, setCount] = useState(0)
 
   return (
     <Button
       onClick={async () => {
+        setCount(count + 1)
         const result = await openModal<ISampleModalProps>(
           SampleModal,
           'for sample',
           {
-            name: 'LHR',
+            name: `${count + 1}`,
           },
         )
         console.log('result', result)
@@ -50,7 +56,7 @@ function Layout() {
 const App = addModalWrapper(Layout)
 
 root.render(
-  <ConfigProvider locale={zhCN}>
+  <ThemeProvider theme={theme}>
     <App />
-  </ConfigProvider>,
+  </ThemeProvider>,
 )

@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react'
 
 import { noop } from '@/utils/functionUtils'
-import { ModalContext } from './ModalWrapper'
-import { DialogProps, MODAL_CLOSE_ERROR_CODE } from './types'
+import { ModalContext } from '@/components/modal/modalWrapper'
+import { DialogProps, MODAL_CLOSE_ERROR_CODE } from '@/components/modal/types'
 
 export default function useModal() {
   const { addModal, closeModal, promiseMap, modals, showModal } =
@@ -30,7 +30,7 @@ export default function useModal() {
 
       const modal = modals.find(({ key: k }) => k === key)
       if (modal) {
-        showModal(key)
+        showModal(key, params)
       } else {
         addModal(Comp, key, params, true)
       }
