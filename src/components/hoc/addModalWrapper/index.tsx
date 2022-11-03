@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useMemoizedFn } from 'ahooks'
-import { message } from 'antd'
-import { IModalContext } from '@/hooks/useModal/types'
-import ModalWrapper, { ModalContext } from '@/hooks/useModal/ModalWrapper'
+import { IModalContext } from '@/components/modal/types'
+import ModalWrapper, { ModalContext } from '@/components/modal/modalWrapper'
 
 export default function addModalWrapper(
   Comp: React.FC | React.ClassicComponentClass,
@@ -14,7 +13,7 @@ export default function addModalWrapper(
     >(new Map())
 
     const changeModalVisible = useMemoizedFn((visible: boolean) => {
-      return function (key: string) {
+      return function (key: string, params?: any) {
         const modal = modals.find(({ key: k }) => k === key)
         if (!modal) {
           return
@@ -27,7 +26,8 @@ export default function addModalWrapper(
             }
             return {
               ...item,
-              visible,
+              params: params ?? item.params,
+              open: visible,
             }
           })
         })
@@ -42,7 +42,7 @@ export default function addModalWrapper(
           addModal: (Comp, key, params, defaultVisible = true) => {
             const modal = modals.find(({ key: k }) => k === key)
             if (modal) {
-              return message.error('存在相同key的弹窗存在，请更换调用方法')
+              return console.error('存在相同key的弹窗存在，请更换调用方法')
             }
             setModals(prevState => {
               return [
@@ -50,7 +50,7 @@ export default function addModalWrapper(
                 {
                   Comp,
                   key,
-                  visible: defaultVisible,
+                  open: defaultVisible,
                   params,
                 },
               ]

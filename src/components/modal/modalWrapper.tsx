@@ -17,11 +17,11 @@ export default function ModalWrapper() {
 
   return (
     <>
-      {modals.map(({ Comp, visible, key, params }) => {
+      {modals.map(({ Comp, open, key, params }) => {
         return (
           <Comp
             key={key}
-            visible={visible}
+            open={open}
             closeModal={closeModal}
             onOK={(results: any) => {
               const promiseMethods = promiseMap.get(key)
