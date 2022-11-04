@@ -184,6 +184,74 @@ const finalTheme = createTheme({
         }),
       },
     },
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          background: '#FFFFFF',
+          borderRadius: 1,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          height: '48px',
+          borderWidth: '1px',
+          color: 'rgba(46,67,105,0.85)',
+          '& fieldset': {
+            borderColor: 'rgba(46,67,105,0.25)',
+            borderWidth: '1px',
+          },
+          '&.Mui-focused fieldset.MuiOutlinedInput-notchedOutline': {
+            borderWidth: '1px',
+          },
+          '&:hover fieldset.MuiOutlinedInput-notchedOutline': {
+            borderColor: 'rgba(46,67,105,0.25)',
+            borderWidth: '1px',
+          },
+          '&.Mui-focused:hover fieldset.MuiOutlinedInput-notchedOutline': {
+            borderColor: '#1FA0E8',
+            borderWidth: '1px',
+          },
+          '&.Mui-error': {
+            '&:hover fieldset': {
+              borderColor: theme.palette.error.main,
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: theme.palette.error.main,
+            },
+            '&.Mui-focused:hover fieldset': {
+              borderColor: theme.palette.error.main,
+            },
+          },
+        }),
+        input: {
+          fontSize: '14px',
+          height: '48px',
+          lineHeight: '48px',
+          paddingTop: 0,
+          paddingBottom: 0,
+          '&.Mui-disabled': {
+            color: '#A5AAB9',
+            '-webkit-text-fill-color': '#A5AAB9',
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: 'rgba(46,67,105,0.35)',
+          fontSize: '14px',
+          '&.Mui-focused': {
+            fontSize: '12px',
+            letterSpacing: 0,
+            lineHeight: '17px',
+            fontWeight: 400,
+          },
+        },
+      },
+    },
   },
 })
 
